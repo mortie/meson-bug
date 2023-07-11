@@ -2,7 +2,7 @@ project('hello')
 
 generated_protos = generator(
   find_program('sh'),
-  output: ['@PLAINNAME@'],
+  output: ['@BASENAME@_modified.proto'],
   arguments: [
     '-c',
     'sed "s/package internal/package whatever/" "$0" > "$1"',
@@ -21,6 +21,7 @@ proto_srcs = generator(
 
 custom_target(
   'hello',
+  build_by_default: true,
   input: proto_srcs,
   output: 'hello.txt',
   command: ['touch', '@OUTPUT@'],
